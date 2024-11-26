@@ -178,8 +178,9 @@ export default function Home() {
             />
             .
           </div>
-
-          <TerminalButton />
+          {!isMobile && (
+            <TerminalButton />
+          )}
 
           <div>
             i enjoy just <span className="font-[500] underline decoration-wavy decoration-neutral-400">making shit</span>, and not limiting myself to just one tech stack or genre
