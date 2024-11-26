@@ -18,7 +18,7 @@ interface GitHubProjectProps {
   pullText?: string;
   imageSize?: { width: number; height: number };
   slideshow?: boolean;
-  images?: readonly string[];
+  images?: string[];
   animationSpeed?: number;
 }
 
