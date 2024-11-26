@@ -24,7 +24,7 @@ export function ThemeToggle() {
         className="theme-toggle"
         color="neutral"
         toggled={theme === 'dark'}
-        toggle={() => setTheme(theme === "dark" ? "light" : "dark")}
+        toggle={() => setTheme(theme === "light" ? "dark" : "light")}
       />
     </div>
   );
