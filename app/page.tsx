@@ -152,140 +152,135 @@ export default function Home() {
   }
 
   return (
-    <div className="relative w-screen h-screen bg-white overflow-x-hidden dark:bg-neutral-950">
-      <div className="relative w-[200vw] h-screen flex">
-        {/* Main Content */}
-        <div className="w-screen h-screen">
-          <div className="max-w-[min(100vh,600px)] aspect-square mx-auto p-8 flex flex-col">
-            <div className="w-[52px] h-[52px] mb-6 relative rounded-full">
-              <Image
-                src="/grim_logo.jpg"
-                alt="Profile"
-                fill
-                className="object-cover"
-                priority
-              />
-            </div>
+    <div className="min-h-screen bg-white dark:bg-neutral-950">
+      <div className="max-w-[min(100vh,600px)] mx-auto p-8">
+        <div className="w-[52px] h-[52px] mb-6 relative rounded-full">
+          <Image
+            src="/grim_logo.jpg"
+            alt="Profile"
+            fill
+            className="object-cover"
+            priority
+          />
+        </div>
 
-            <div className="space-y-4 text-[15px] leading-relaxed">
-              <div className="text-neutral-400 dark:text-neutral-500">Updated 11/24/2024</div>
+        <div className="space-y-4 text-[15px] leading-relaxed">
+          <div className="text-neutral-400 dark:text-neutral-500">Updated 11/24/2024</div>
 
-              <div>
-                I&apos;m a dev living in cali and working at{" "}
-                <ProjectLink
-                  href={projects.grimslab.href}
-                  text={projects.grimslab.text}
-                  imageUrl={projects.grimslab.imageUrl}
-                  imageSize={projects.grimslab.imageSize}
-                  borderRadius={projects.grimslab.borderRadius}
-                />
-                .
-              </div>
+          <div>
+            I&apos;m a dev living in cali and working at{" "}
+            <ProjectLink
+              href={projects.grimslab.href}
+              text={projects.grimslab.text}
+              imageUrl={projects.grimslab.imageUrl}
+              imageSize={projects.grimslab.imageSize}
+              borderRadius={projects.grimslab.borderRadius}
+            />
+            .
+          </div>
 
-              <TerminalButton />
+          <TerminalButton />
 
-              <div>
-                i enjoy just <span className="font-[500] underline decoration-wavy decoration-neutral-400">making shit</span>, and not limiting myself to just one tech stack or genre
-              </div>
+          <div>
+            i enjoy just <span className="font-[500] underline decoration-wavy decoration-neutral-400">making shit</span>, and not limiting myself to just one tech stack or genre
+          </div>
 
-              <Divider />
+          <Divider />
 
-              <div className="space-y-1">
-                <div>
-                  some projects ive been working on:{" "}
-                </div>
-              </div>
-
-              <div className="space-y-1">
-                <div>
-                  <ProjectLink
-                    href={projects.fmstalker.href}
-                    text={projects.fmstalker.text}
-                    imageUrl={projects.fmstalker.imageUrl}
-                    imageSize={projects.fmstalker.imageSize}
-                    borderRadius={projects.fmstalker.borderRadius}
-                  />{" "}
-                  - a lastfm stats tracker
-                </div>
-                <div>
-                  <ProjectLink
-                    href={projects.ezcart.href}
-                    text={projects.ezcart.text}
-                    imageUrl={projects.ezcart.imageUrl}
-                    imageSize={projects.ezcart.imageSize}
-                    borderRadius={projects.ezcart.borderRadius}
-                  />{" "}
-                  - a realtime shopping cart calculator
-                </div>
-                <div>
-                  <ProjectLink
-                    href={projects.playground.href}
-                    text={projects.playground.text}
-                    imageUrl={projects.playground.imageUrl}
-                    imageSize={projects.playground.imageSize}
-                    borderRadius={projects.playground.borderRadius}
-                  />{" "}
-                  - a realtime shopify theme customizer
-                </div>
-                <div>
-                  <ProjectLink
-                    href={projects.fixroblox.href}
-                    text={projects.fixroblox.text}
-                    imageUrl={projects.fixroblox.imageUrl}
-                    imageSize={projects.fixroblox.imageSize}
-                    borderRadius={projects.fixroblox.borderRadius}
-                  />{" "}
-                  - fixes roblox embeds on discord
-                </div>
-              </div>
-
-
-              <Divider />
-
-              <div className="space-y-1">
-                <div>
-                  some projects ive contributed to:{" "}
-                </div>
-              </div>
-
-              <div className="space-y-2">
-                {Object.values(contributions).map((contribution) => (
-                  <GitHubProject
-                    key={contribution.text}
-                    href={contribution.href}
-                    name={contribution.text}
-                    description={contribution.description}
-                    previewImage={contribution.previewUrl}
-                    pullUrl={contribution.pullUrl}
-                    pullText={contribution.pullText}
-                    imageSize={contribution.imageSize}
-                    slideshow={contribution.slideshow}
-                    images={contribution.images}
-                    animationSpeed={contribution.animationSpeed}
-                  />
-                ))}
-              </div>
-              <div>
-                Feel free to{" "}
-                <a
-                  href="mailto:example@email.com"
-                  className="text-blue-500 hover:opacity-70 transition-opacity duration-120 inline-flex items-center"
-                >
-                  send me an email
-                </a>
-                .
-              </div>
-
-              <div className="space-y-4">
-                <NowPlaying />
-              </div>
-
-              <div className={`${isMobile ? "hidden" : "block"}`}>
-                <Oneko />
-              </div>
-
+          <div className="space-y-1">
+            <div>
+              some projects ive been working on:{" "}
             </div>
           </div>
+
+          <div className="space-y-1">
+            <div>
+              <ProjectLink
+                href={projects.fmstalker.href}
+                text={projects.fmstalker.text}
+                imageUrl={projects.fmstalker.imageUrl}
+                imageSize={projects.fmstalker.imageSize}
+                borderRadius={projects.fmstalker.borderRadius}
+              />{" "}
+              - a lastfm stats tracker
+            </div>
+            <div>
+              <ProjectLink
+                href={projects.ezcart.href}
+                text={projects.ezcart.text}
+                imageUrl={projects.ezcart.imageUrl}
+                imageSize={projects.ezcart.imageSize}
+                borderRadius={projects.ezcart.borderRadius}
+              />{" "}
+              - a realtime shopping cart calculator
+            </div>
+            <div>
+              <ProjectLink
+                href={projects.playground.href}
+                text={projects.playground.text}
+                imageUrl={projects.playground.imageUrl}
+                imageSize={projects.playground.imageSize}
+                borderRadius={projects.playground.borderRadius}
+              />{" "}
+              - a realtime shopify theme customizer
+            </div>
+            <div>
+              <ProjectLink
+                href={projects.fixroblox.href}
+                text={projects.fixroblox.text}
+                imageUrl={projects.fixroblox.imageUrl}
+                imageSize={projects.fixroblox.imageSize}
+                borderRadius={projects.fixroblox.borderRadius}
+              />{" "}
+              - fixes roblox embeds on discord
+            </div>
+          </div>
+
+
+          <Divider />
+
+          <div className="space-y-1">
+            <div>
+              some projects ive contributed to:{" "}
+            </div>
+          </div>
+
+          <div className="space-y-2">
+            {Object.values(contributions).map((contribution) => (
+              <GitHubProject
+                key={contribution.text}
+                href={contribution.href}
+                name={contribution.text}
+                description={contribution.description}
+                previewImage={contribution.previewUrl}
+                pullUrl={contribution.pullUrl}
+                pullText={contribution.pullText}
+                imageSize={contribution.imageSize}
+                slideshow={contribution.slideshow}
+                images={contribution.images}
+                animationSpeed={contribution.animationSpeed}
+              />
+            ))}
+          </div>
+          <div>
+            Feel free to{" "}
+            <a
+              href="mailto:example@email.com"
+              className="text-blue-500 hover:opacity-70 transition-opacity duration-120 inline-flex items-center"
+            >
+              send me an email
+            </a>
+            .
+          </div>
+
+          <div className="space-y-4">
+            <NowPlaying />
+          </div>
+
+          <div className={`${isMobile ? "hidden" : "block"}`}>
+            <Oneko />
+          </div>
+
         </div>
       </div>
     </div>
