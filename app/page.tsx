@@ -88,7 +88,7 @@ export default function Home() {
       imageUrl: "/fixroblox.jpg",
       imageSize: { width: 100, height: 60 }
     }
-  } as const;
+  }
 
   const contributions: Record<string, Contribution> = {
     quickpic: {
@@ -116,7 +116,7 @@ export default function Home() {
       imageSize: { width: 200, height: 151 },
       description: "noplace, but on ALL devices"
     }
-  } as const;
+  }
 
   if (!mounted) {
     return (
