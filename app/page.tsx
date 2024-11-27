@@ -176,7 +176,7 @@ export default function Home() {
         </div>
 
         <div className="space-y-4 text-[15px] leading-relaxed">
-          <div className="text-neutral-400 dark:text-neutral-500">Updated 11/24/2024</div>
+          <div className="text-neutral-400 dark:text-neutral-500">Updated 11/27/2024</div>
 
           <div>
             I&apos;m a dev living in cali and working at{" "}
