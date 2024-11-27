@@ -101,14 +101,18 @@ export function NowPlaying() {
         <div className="relative block p-4 rounded-xl bg-white dark:bg-black">
           <div className="flex items-start justify-between">
             <div className="flex gap-4">
-              {/* Album Art */}
+              {/* Album Art with fallback and dark mode inversion */}
               <div className="relative w-16 h-16 rounded-lg overflow-hidden flex-shrink-0">
                 <Image
-                  src={track.image[2]['#text'] || '/placeholder-album.png'}
+                  src={track.image[2]['#text'] || '/placeholder.png'}
                   alt={track.album?.['#text'] || 'Album artwork'}
                   width={64}
                   height={64}
-                  className="object-cover"
+                  className="object-cover dark:invert"
+                  onError={(e) => {
+                    const img = e.target as HTMLImageElement;
+                    img.src = '/placeholder.png';
+                  }}
                 />
               </div>
 
@@ -147,14 +151,18 @@ export function NowPlaying() {
       <div className="lg:hidden p-4 rounded-xl border border-neutral-200 dark:border-neutral-800 hover:border-neutral-300 dark:hover:border-neutral-700 transition-all duration-200">
         <div className="flex items-start justify-between">
           <div className="flex gap-4">
-            {/* Album Art */}
+            {/* Album Art with fallback and dark mode inversion */}
             <div className="relative w-16 h-16 rounded-lg overflow-hidden flex-shrink-0">
               <Image
-                src={track.image[2]['#text'] || '/placeholder-album.png'}
+                src={track.image[2]['#text'] || '/placeholder.png'}
                 alt={track.album?.['#text'] || 'Album artwork'}
                 width={64}
                 height={64}
-                className="object-cover"
+                className="object-cover dark:invert"
+                onError={(e) => {
+                  const img = e.target as HTMLImageElement;
+                  img.src = '/placeholder.png';
+                }}
               />
             </div>
 
