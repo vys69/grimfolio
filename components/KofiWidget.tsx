@@ -18,7 +18,6 @@ export function KofiWidget() {
 
   return (
     <>
-      {/* Overlay */}
       {isVisible && (
         <div 
           className="absolute w-full h-full overlay inset-0 bg-black/40 backdrop-blur-[2px] z-[10] transition-opacity duration-300"

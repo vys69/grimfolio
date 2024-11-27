@@ -91,7 +91,7 @@ export function NowPlaying() {
 
   return (
     <>
-      {/* Desktop version with spotlight */}
+      
       <div className="hidden lg:block relative overflow-hidden rounded-xl bg-neutral-200/30 p-[1px] dark:bg-black">
         <Spotlight
           className="from-blue-500/40 via-blue-500/20 to-blue-500/10 blur-xl 
@@ -101,7 +101,7 @@ export function NowPlaying() {
         <div className="relative block p-4 rounded-xl bg-white dark:bg-black">
           <div className="flex items-start justify-between">
             <div className="flex gap-4">
-              {/* Album Art with conditional inversion */}
+              
               <div className="relative w-16 h-16 rounded-lg overflow-hidden flex-shrink-0">
                 <Image
                   src={track.image[2]['#text'] || '/placeholder.png'}
@@ -117,7 +117,7 @@ export function NowPlaying() {
                 />
               </div>
 
-              {/* Track Info */}
+              
               <div className="flex flex-col min-w-0">
                 <div className="flex items-center gap-2">
                   <div className="text-sm text-neutral-500 dark:text-neutral-400">
@@ -133,7 +133,7 @@ export function NowPlaying() {
               </div>
             </div>
 
-            {/* Refresh Button */}
+            
             <button
               onClick={fetchNowPlaying}
               disabled={isLoading}
@@ -148,11 +148,11 @@ export function NowPlaying() {
         </div>
       </div>
 
-      {/* Mobile/Tablet version with regular border */}
+      
       <div className="lg:hidden p-4 rounded-xl border border-neutral-200 dark:border-neutral-800 hover:border-neutral-300 dark:hover:border-neutral-700 transition-all duration-200">
         <div className="flex items-start justify-between">
           <div className="flex gap-4">
-            {/* Album Art with conditional inversion */}
+            
             <div className="relative w-16 h-16 rounded-lg overflow-hidden flex-shrink-0">
               <Image
                 src={track.image[2]['#text'] || '/placeholder.png'}
@@ -168,7 +168,7 @@ export function NowPlaying() {
               />
             </div>
 
-            {/* Track Info */}
+            
             <div className="flex flex-col min-w-0">
               <div className="flex items-center gap-2">
                 <div className="text-sm text-neutral-500 dark:text-neutral-400">
@@ -184,7 +184,7 @@ export function NowPlaying() {
             </div>
           </div>
 
-          {/* Refresh Button */}
+          
           <button
             onClick={fetchNowPlaying}
             disabled={isLoading}

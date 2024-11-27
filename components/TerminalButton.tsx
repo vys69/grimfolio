@@ -113,7 +113,7 @@ export function TerminalButton() {
 
       {shouldRender && (
         <>
-          {/* Terminal Overlay */}
+          
           <div 
             className={`fixed inset-0 bg-black/40 backdrop-blur-[2px] z-[99999] transition-opacity duration-300 ${
               isOpen ? "opacity-100" : "opacity-0"
@@ -121,7 +121,7 @@ export function TerminalButton() {
             onClick={handleClose}
           />
 
-          {/* Terminal Window */}
+          
           <div
             className={`fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[90%] md:w-[600px] h-[50vh] rounded-lg overflow-hidden shadow-xl z-[999999] transition-all duration-300 transform ${
               isOpen ? "scale-100 opacity-100" : "scale-95 opacity-0"

@@ -78,7 +78,7 @@ export function GitHubProject({
 
   return (
     <>
-      {/* Desktop version with spotlight */}
+      
       <div className="hidden lg:block relative overflow-hidden rounded-xl bg-neutral-200/30 p-[1px] dark:bg-neutral-800/30">
         <Spotlight
           className="from-blue-500/40 via-blue-500/20 to-blue-500/10 blur-xl 
@@ -129,7 +129,7 @@ export function GitHubProject({
         </a>
       </div>
 
-      {/* Mobile/Tablet version with regular border */}
+      
       <div className="lg:hidden">
         <a
           href={href}
