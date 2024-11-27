@@ -65,7 +65,7 @@ export default function Home() {
       imageSize: { width: 48, height: 48 }
     },
     playground: {
-      href: "#",
+      href: "https://grim-playground.vercel.app/",
       text: "playground",
       borderRadius: 0,
       imageUrl: "/playground.png",
