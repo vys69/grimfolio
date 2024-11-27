@@ -4,8 +4,9 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import { CSSProperties } from "react";
 import { ExternalLink, Github, Link } from "lucide-react";
-import { useIsMobile } from '@/hooks/useIsMobile';
+import { isMobile } from "react-device-detect";
 import { Button } from "./ui/button";
+import { Spotlight } from '@/components/motion/spotlight';
 
 interface GitHubProjectProps {
   href: string;
@@ -39,7 +40,6 @@ export function GitHubProject({
   const [isHovered, setIsHovered] = useState(false);
   const [shouldRender, setShouldRender] = useState(false);
   const [position, setPosition] = useState({ x: 0, y: 0 });
-  const isMobile = useIsMobile();
 
   const handleMouseEnter = (e: React.MouseEvent) => {
     setPosition({
@@ -78,48 +78,102 @@ export function GitHubProject({
 
   return (
     <>
-      <a
-        href={href}
-        className={`block p-4 rounded-xl border border-neutral-200 dark:border-neutral-800 
-          hover:border-neutral-300 dark:hover:border-neutral-700 
-          transition-all duration-200 ${className}`}
-        style={style}
-        onMouseEnter={!isMobile ? handleMouseEnter : undefined}
-        onMouseLeave={!isMobile ? () => setIsHovered(false) : undefined}
-      >
-        <div className="flex items-center gap-2 mb-2">
-          <div className="text-lg font-medium flex items-center gap-2">
-            <Github className="h-5 w-5" />
-            / {name}
-            {pullText && (
-              <Button
-                variant="link" 
-                style={{
-                  padding: 0,
-                  margin: 0,
-                  textDecoration: 'none'
-                }}
-                onClick={
-                  (e) => {
-                    e.preventDefault();
-                    window.location.href = pullUrl!;
-                  }
-                }
-              >
-              <span className="mt-[4px] text-sm text-blue-500 dark:text-blue-400 hover:text-[15px] transition-all duration-200">
-                {pullText}
-              </span>
-              </Button>
+      {/* Desktop version with spotlight */}
+      <div className="hidden lg:block relative overflow-hidden rounded-xl bg-neutral-200/30 p-[1px] dark:bg-neutral-800/30">
+        <Spotlight
+          className="from-blue-500/40 via-blue-500/20 to-blue-500/10 blur-xl 
+            dark:from-blue-400/40 dark:via-blue-400/20 dark:to-blue-400/10"
+          size={124}
+        />
+        <a
+          href={href}
+          className={`relative block p-4 rounded-xl bg-white dark:bg-black 
+            transition-all duration-200 ${className}`}
+          style={style}
+          onMouseEnter={!isMobile ? handleMouseEnter : undefined}
+          onMouseLeave={!isMobile ? () => setIsHovered(false) : undefined}
+        >
+          <div className="relative z-10">
+            <div className="flex items-center gap-2 mb-2">
+              <div className="text-lg font-medium flex items-center gap-2">
+                <Github className="h-5 w-5" />
+                / {name}
+                {pullText && (
+                  <Button
+                    variant="link" 
+                    style={{
+                      padding: 0,
+                      margin: 0,
+                      textDecoration: 'none'
+                    }}
+                    onClick={
+                      (e) => {
+                        e.preventDefault();
+                        window.location.href = pullUrl!;
+                      }
+                    }
+                  >
+                    <span className="mt-[4px] text-sm text-blue-500 dark:text-blue-400 hover:text-[15px] transition-all duration-200">
+                      {pullText}
+                    </span>
+                  </Button>
+                )}
+              </div>
+            </div>
+            {description && (
+              <p className="text-sm text-neutral-600 dark:text-neutral-400">
+                {description}
+              </p>
             )}
           </div>
-        </div>
-        {description && (
-          <p className="text-sm text-neutral-600 dark:text-neutral-400">
-            {description}
-          </p>
-        )}
-      </a>
-      
+        </a>
+      </div>
+
+      {/* Mobile/Tablet version with regular border */}
+      <div className="lg:hidden">
+        <a
+          href={href}
+          className={`block p-4 rounded-xl border border-neutral-200 dark:border-neutral-800 
+            hover:border-neutral-300 dark:hover:border-neutral-700 
+            transition-all duration-200 bg-white dark:bg-black ${className}`}
+          style={style}
+        >
+          <div className="relative z-10">
+            <div className="flex items-center gap-2 mb-2">
+              <div className="text-lg font-medium flex items-center gap-2">
+                <Github className="h-5 w-5" />
+                / {name}
+                {pullText && (
+                  <Button
+                    variant="link" 
+                    style={{
+                      padding: 0,
+                      margin: 0,
+                      textDecoration: 'none'
+                    }}
+                    onClick={
+                      (e) => {
+                        e.preventDefault();
+                        window.location.href = pullUrl!;
+                      }
+                    }
+                  >
+                    <span className="mt-[4px] text-sm text-blue-500 dark:text-blue-400 hover:text-[15px] transition-all duration-200">
+                      {pullText}
+                    </span>
+                  </Button>
+                )}
+              </div>
+            </div>
+            {description && (
+              <p className="text-sm text-neutral-600 dark:text-neutral-400">
+                {description}
+              </p>
+            )}
+          </div>
+        </a>
+      </div>
+
       {shouldShowHover && (
         <div 
           className={`fixed pointer-events-none z-50 origin-center

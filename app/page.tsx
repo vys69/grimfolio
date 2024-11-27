@@ -1,8 +1,8 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
-import { Mail, Moon, Github } from "lucide-react";
+import { Mail, Moon, Github, Twitter } from "lucide-react";
 import { TOGGLE_KOFI_EVENT } from "@/components/KofiWidget";
 import { ProjectLink } from "@/components/ProjectLink";
 import { ReactTerminal } from "react-terminal";
@@ -13,7 +13,10 @@ import { Oneko } from "@/components/Oneko";
 import { isMobile } from "react-device-detect";
 import { SlideshowLink } from "@/components/SlideshowLink";
 import { TerminalButton } from "@/components/TerminalButton";
-// Define the type for a contribution
+import { InfiniteSlider } from "@/components/motion/infinite-slider";
+import { ScrollProgress } from '@/components/motion/scroll-progress';
+import { InView } from '@/components/motion/in-view';
+
 type Contribution = {
   href: string;
   text: string;
@@ -31,6 +34,7 @@ type Contribution = {
 export default function Home() {
   const [isHovered, setIsHovered] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     setMounted(true);
@@ -105,15 +109,8 @@ export default function Home() {
       href: "https://noplace.live",
       text: "noplace",
       author: "grim & eli",
-      previewUrl: "/noplace.png",
-      slideshow: true,
-      images: [
-        "/noplace.png",
-        "/noplaceprofile.png",
-        "/noplace.png"
-      ],
-      animationSpeed: 10,
-      imageSize: { width: 200, height: 151 },
+      previewUrl: "/logos/noplace.png",
+      imageSize: { width: 50, height: 50 },
       description: "noplace, but on ALL devices"
     }
   }
@@ -152,8 +149,22 @@ export default function Home() {
   }
 
   return (
-    <div className="min-h-screen bg-white dark:bg-neutral-950">
-      <div className="max-w-[min(100vh,600px)] mx-auto p-8">
+    <div className="min-h-screen overflow-x-hidden bg-white dark:bg-neutral-950">
+      <div className="fixed inset-x-0 top-0 z-50">
+        <div className="h-[1px] w-full bg-neutral-200 dark:bg-neutral-800" />
+        <ScrollProgress
+          className="h-[1px] bg-neutral-800 dark:bg-neutral-200"
+          springOptions={{
+            stiffness: 280,
+            damping: 18,
+            mass: 0.3,
+          }}
+        />
+      </div>
+
+      
+
+      <div className="max-w-[min(100vh,600px)] mx-auto p-8 pt-12">
         <div className="w-[52px] h-[52px] mb-6 relative rounded-full">
           <Image
             src="/grim_logo.jpg"
@@ -188,94 +199,166 @@ export default function Home() {
 
           <Divider />
 
-          <div className="space-y-1">
-            <div>
-              some projects ive been working on:{" "}
+          <InView
+            variants={{
+              hidden: { opacity: 0, y: 20 },
+              visible: { opacity: 1, y: 0 }
+            }}
+            transition={{ duration: 0.4, ease: "easeOut" }}
+          >
+            <div className="space-y-1">
+              <div>
+                some projects ive been working on:{" "}
+              </div>
             </div>
-          </div>
 
-          <div className="space-y-1">
-            <div>
-              <ProjectLink
-                href={projects.fmstalker.href}
-                text={projects.fmstalker.text}
-                imageUrl={projects.fmstalker.imageUrl}
-                imageSize={projects.fmstalker.imageSize}
-                borderRadius={projects.fmstalker.borderRadius}
-              />{" "}
-              - a lastfm stats tracker
+            <div className="mt-2">
+              <div>
+                <ProjectLink
+                  href={projects.fmstalker.href}
+                  text={projects.fmstalker.text}
+                  imageUrl={projects.fmstalker.imageUrl}
+                  imageSize={projects.fmstalker.imageSize}
+                  borderRadius={projects.fmstalker.borderRadius}
+                />{" "}
+                - a lastfm stats tracker
+              </div>
+              <div>
+                <ProjectLink
+                  href={projects.ezcart.href}
+                  text={projects.ezcart.text}
+                  imageUrl={projects.ezcart.imageUrl}
+                  imageSize={projects.ezcart.imageSize}
+                  borderRadius={projects.ezcart.borderRadius}
+                />{" "}
+                - a realtime shopping cart calculator
+              </div>
+              <div>
+                <ProjectLink
+                  href={projects.playground.href}
+                  text={projects.playground.text}
+                  imageUrl={projects.playground.imageUrl}
+                  imageSize={projects.playground.imageSize}
+                  borderRadius={projects.playground.borderRadius}
+                />{" "}
+                - a realtime shopify theme customizer
+              </div>
+              <div>
+                <ProjectLink
+                  href={projects.fixroblox.href}
+                  text={projects.fixroblox.text}
+                  imageUrl={projects.fixroblox.imageUrl}
+                  imageSize={projects.fixroblox.imageSize}
+                  borderRadius={projects.fixroblox.borderRadius}
+                />{" "}
+                - fixes roblox embeds on discord
+              </div>
             </div>
-            <div>
-              <ProjectLink
-                href={projects.ezcart.href}
-                text={projects.ezcart.text}
-                imageUrl={projects.ezcart.imageUrl}
-                imageSize={projects.ezcart.imageSize}
-                borderRadius={projects.ezcart.borderRadius}
-              />{" "}
-              - a realtime shopping cart calculator
-            </div>
-            <div>
-              <ProjectLink
-                href={projects.playground.href}
-                text={projects.playground.text}
-                imageUrl={projects.playground.imageUrl}
-                imageSize={projects.playground.imageSize}
-                borderRadius={projects.playground.borderRadius}
-              />{" "}
-              - a realtime shopify theme customizer
-            </div>
-            <div>
-              <ProjectLink
-                href={projects.fixroblox.href}
-                text={projects.fixroblox.text}
-                imageUrl={projects.fixroblox.imageUrl}
-                imageSize={projects.fixroblox.imageSize}
-                borderRadius={projects.fixroblox.borderRadius}
-              />{" "}
-              - fixes roblox embeds on discord
-            </div>
-          </div>
+          </InView>
 
-
-          <Divider />
-
-          <div className="space-y-1">
-            <div>
-              some projects ive contributed to:{" "}
+          <InView
+            variants={{
+              hidden: { opacity: 0, y: 20 },
+              visible: { opacity: 1, y: 0 }
+            }}
+            transition={{ duration: 0.4, ease: "easeOut" }}
+            viewOptions={{ margin: '0px 0px -100px 0px' }}
+          >
+            <div className="space-y-1">
+              <div>
+                some projects ive contributed to:{" "}
+              </div>
             </div>
-          </div>
 
-          <div className="space-y-2">
-            {Object.values(contributions).map((contribution) => (
-              <GitHubProject
-                key={contribution.text}
-                href={contribution.href}
-                name={contribution.text}
-                description={contribution.description}
-                previewImage={contribution.previewUrl}
-                pullUrl={contribution.pullUrl}
-                pullText={contribution.pullText}
-                imageSize={contribution.imageSize}
-                slideshow={contribution.slideshow}
-                images={contribution.images}
-                animationSpeed={contribution.animationSpeed}
-              />
-            ))}
-          </div>
-          <div>
-            Feel free to{" "}
-            <a
-              href="mailto:example@email.com"
-              className="text-blue-500 hover:opacity-70 transition-opacity duration-120 inline-flex items-center"
-            >
-              send me an email
+            <div className="mt-2">
+              {Object.values(contributions).map((contribution) => (
+                <GitHubProject
+                  key={contribution.text}
+                  href={contribution.href}
+                  name={contribution.text}
+                  description={contribution.description}
+                  previewImage={contribution.previewUrl}
+                  pullUrl={contribution.pullUrl}
+                  pullText={contribution.pullText}
+                  imageSize={contribution.imageSize}
+                  slideshow={contribution.slideshow}
+                  images={contribution.images}
+                  animationSpeed={contribution.animationSpeed}
+                />
+              ))}
+            </div>
+          </InView>
+
+          <InView
+            variants={{
+              hidden: { opacity: 0, y: 20 },
+              visible: { opacity: 1, y: 0 }
+            }}
+            transition={{ duration: 0.4, ease: "easeOut" }}
+            viewOptions={{ margin: '0px 0px -100px 0px' }}
+          >
+            <div className="space-y-4">
+              <NowPlaying />
+            </div>
+          </InView>
+
+          <InView
+            variants={{
+              hidden: { opacity: 0, y: 20 },
+              visible: { opacity: 1, y: 0 }
+            }}
+            transition={{ duration: 0.4, ease: "easeOut" }}
+            viewOptions={{ margin: '0px 0px -100px 0px' }}
+          >
+            <InfiniteSlider gap={24} reverse duration={50} durationOnHover={150}>
+              <a href="https://synicalglobal.com">
+                <img
+                  src='/logos/synical.webp'
+                  alt='Synical logo'
+                  className='h-[120px] w-auto'
+                />
+              </a>
+              <a href="https://8thwndr.com">
+                <img
+                  src='/logos/8thwndr.png'
+                  alt='8thwndr logo'
+                  className='h-[120px] w-auto'
+                />
+              </a>
+              <a href="https://ditch.la">
+                <img
+                  src='/logos/ditch.webp'
+                  alt='ditch logo'
+                  className='h-[120px] w-auto'
+                />
+              </a>
+              <a href="https://pholoh.us">
+                <img
+                  src='/logos/pholoh.png'
+                  alt='pholoh logo'
+                  className='h-[120px] w-auto'
+                />
+              </a>
+              <a href="https://exodusgarments.com">
+                <img
+                  src='/logos/exodus.webp'
+                  alt='exodus logo'
+                  className='h-[120px] w-auto'
+                />
+              </a>
+            </InfiniteSlider>
+          </InView>
+
+          <div className="flex items-center justify-center w-full gap-4">
+            <a href="mailto:grimstudioss@gmail.com">
+              <Mail className="w-5 h-5 text-neutral-400 dark:text-neutral-500 hover:text-neutral-500 dark:hover:text-neutral-400 transition-colors duration-120 cursor-pointer" />
             </a>
-            .
-          </div>
-
-          <div className="space-y-4">
-            <NowPlaying />
+            <a href="https://x.com/fuckgrimlabs">
+              <Twitter className="w-5 h-5 text-neutral-400 dark:text-neutral-500 hover:text-neutral-500 dark:hover:text-neutral-400 transition-colors duration-120 cursor-pointer" />
+            </a>
+            <a href="https://github.com/vys69">
+              <Github className="w-5 h-5 text-neutral-400 dark:text-neutral-500 hover:text-neutral-500 dark:hover:text-neutral-400 transition-colors duration-120 cursor-pointer" />
+            </a>
           </div>
 
           <div className={`${isMobile ? "hidden" : "block"}`}>

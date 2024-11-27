@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import { RefreshCw } from "lucide-react";
 import { fetchLastFmData } from "@/lib/api";
+import { Spotlight } from '@/components/motion/spotlight';
 import type { LastFmResponse } from "@/types/lastfm";
 
 const POLL_INTERVAL = 3000; // 3 seconds
@@ -89,48 +90,103 @@ export function NowPlaying() {
   }
 
   return (
-    <div className="p-4 rounded-xl border border-neutral-200 dark:border-neutral-800 hover:border-neutral-300 dark:hover:border-neutral-700 transition-all duration-200">
-      <div className="flex items-start justify-between">
-        <div className="flex gap-4">
-          {/* Album Art */}
-          <div className="relative w-16 h-16 rounded-lg overflow-hidden flex-shrink-0">
-            <Image
-              src={track.image[2]['#text'] || '/placeholder-album.png'}
-              alt={track.album?.['#text'] || 'Album artwork'}
-              width={64}
-              height={64}
-              className="object-cover"
-            />
-          </div>
+    <>
+      {/* Desktop version with spotlight */}
+      <div className="hidden lg:block relative overflow-hidden rounded-xl bg-neutral-200/30 p-[1px] dark:bg-black">
+        <Spotlight
+          className="from-blue-500/40 via-blue-500/20 to-blue-500/10 blur-xl 
+            dark:from-blue-400/40 dark:via-blue-400/20 dark:to-blue-400/10"
+          size={124}
+        />
+        <div className="relative block p-4 rounded-xl bg-white dark:bg-black">
+          <div className="flex items-start justify-between">
+            <div className="flex gap-4">
+              {/* Album Art */}
+              <div className="relative w-16 h-16 rounded-lg overflow-hidden flex-shrink-0">
+                <Image
+                  src={track.image[2]['#text'] || '/placeholder-album.png'}
+                  alt={track.album?.['#text'] || 'Album artwork'}
+                  width={64}
+                  height={64}
+                  className="object-cover"
+                />
+              </div>
 
-          {/* Track Info */}
-          <div className="flex flex-col min-w-0">
-            <div className="flex items-center gap-2">
-              <div className="text-sm text-neutral-500 dark:text-neutral-400">
-                {isPlaying ? 'Now playing' : 'Last played'}
+              {/* Track Info */}
+              <div className="flex flex-col min-w-0">
+                <div className="flex items-center gap-2">
+                  <div className="text-sm text-neutral-500 dark:text-neutral-400">
+                    {isPlaying ? 'Now playing' : 'Last played'}
+                  </div>
+                </div>
+                <div className="font-medium truncate mt-1">
+                  {track.name}
+                </div>
+                <div className="text-sm text-neutral-500 dark:text-neutral-400 truncate">
+                  {track.album?.['#text']}
+                </div>
               </div>
             </div>
-            <div className="font-medium truncate mt-1">
-              {track.name}
-            </div>
-            <div className="text-sm text-neutral-500 dark:text-neutral-400 truncate">
-              {track.album?.['#text']}
-            </div>
+
+            {/* Refresh Button */}
+            <button
+              onClick={fetchNowPlaying}
+              disabled={isLoading}
+              className="p-2 hover:bg-neutral-100 dark:hover:bg-neutral-800 rounded-lg transition-colors"
+              aria-label="Refresh now playing"
+            >
+              <RefreshCw 
+                className={`h-4 w-4 text-neutral-500 ${isLoading ? 'animate-spin' : ''}`}
+              />
+            </button>
           </div>
         </div>
-
-        {/* Refresh Button */}
-        <button
-          onClick={fetchNowPlaying}
-          disabled={isLoading}
-          className="p-2 hover:bg-neutral-100 dark:hover:bg-neutral-800 rounded-lg transition-colors"
-          aria-label="Refresh now playing"
-        >
-          <RefreshCw 
-            className={`h-4 w-4 text-neutral-500 ${isLoading ? 'animate-spin' : ''}`}
-          />
-        </button>
       </div>
-    </div>
+
+      {/* Mobile/Tablet version with regular border */}
+      <div className="lg:hidden p-4 rounded-xl border border-neutral-200 dark:border-neutral-800 hover:border-neutral-300 dark:hover:border-neutral-700 transition-all duration-200">
+        <div className="flex items-start justify-between">
+          <div className="flex gap-4">
+            {/* Album Art */}
+            <div className="relative w-16 h-16 rounded-lg overflow-hidden flex-shrink-0">
+              <Image
+                src={track.image[2]['#text'] || '/placeholder-album.png'}
+                alt={track.album?.['#text'] || 'Album artwork'}
+                width={64}
+                height={64}
+                className="object-cover"
+              />
+            </div>
+
+            {/* Track Info */}
+            <div className="flex flex-col min-w-0">
+              <div className="flex items-center gap-2">
+                <div className="text-sm text-neutral-500 dark:text-neutral-400">
+                  {isPlaying ? 'Now playing' : 'Last played'}
+                </div>
+              </div>
+              <div className="font-medium truncate mt-1">
+                {track.name}
+              </div>
+              <div className="text-sm text-neutral-500 dark:text-neutral-400 truncate">
+                {track.album?.['#text']}
+              </div>
+            </div>
+          </div>
+
+          {/* Refresh Button */}
+          <button
+            onClick={fetchNowPlaying}
+            disabled={isLoading}
+            className="p-2 hover:bg-neutral-100 dark:hover:bg-neutral-800 rounded-lg transition-colors"
+            aria-label="Refresh now playing"
+          >
+            <RefreshCw 
+              className={`h-4 w-4 text-neutral-500 ${isLoading ? 'animate-spin' : ''}`}
+            />
+          </button>
+        </div>
+      </div>
+    </>
   );
 }
