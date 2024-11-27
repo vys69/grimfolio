@@ -270,7 +270,7 @@ export default function Home() {
               </div>
             </div>
 
-            <div className="mt-2">
+            <div className="mt-2 space-y-2">
               {Object.values(contributions).map((contribution) => (
                 <GitHubProject
                   key={contribution.text}
