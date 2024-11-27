@@ -1,0 +1,6 @@
+{
+  "git": {
+    "cloneDepth": 1
+  },
+  "buildCommand": "git fetch --unshallow && next build"
+} 

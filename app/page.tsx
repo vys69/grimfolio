@@ -16,6 +16,7 @@ import { TerminalButton } from "@/components/TerminalButton";
 import { InfiniteSlider } from "@/components/motion/infinite-slider";
 import { ScrollProgress } from '@/components/motion/scroll-progress';
 import { InView } from '@/components/motion/in-view';
+import { getLastUpdateDate } from '@/lib/getLastUpdate';
 
 type Contribution = {
   href: string;
@@ -31,7 +32,8 @@ type Contribution = {
   animationSpeed?: number;
 };
 
-export default function Home() {
+export default async function Home() {
+  const lastUpdate = getLastUpdateDate();
   const [isHovered, setIsHovered] = useState(false);
   const [mounted, setMounted] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -176,7 +178,9 @@ export default function Home() {
         </div>
 
         <div className="space-y-4 text-[15px] leading-relaxed">
-          <div className="text-neutral-400 dark:text-neutral-500">Updated 11/24/2024</div>
+          <div className="text-neutral-400 dark:text-neutral-500">
+            Updated {lastUpdate}
+          </div>
 
           <div>
             I&apos;m a dev living in cali and working at{" "}
