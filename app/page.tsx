@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
+import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { Mail, Moon, Github, Twitter } from "lucide-react";
 import { TOGGLE_KOFI_EVENT } from "@/components/KofiWidget";
@@ -16,7 +17,8 @@ import { TerminalButton } from "@/components/TerminalButton";
 import { InfiniteSlider } from "@/components/motion/infinite-slider";
 import { ScrollProgress } from '@/components/motion/scroll-progress';
 import { InView } from '@/components/motion/in-view';
-
+import { motion } from "framer-motion";
+import { projects as projectsList } from "@/lib/constants";
 type Contribution = {
   href: string;
   text: string;
@@ -35,6 +37,11 @@ export default function Home() {
   const [isHovered, setIsHovered] = useState(false);
   const [mounted, setMounted] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
+  const router = useRouter();
+
+  function route(path: string) {
+    router.push(path);
+  }
 
   useEffect(() => {
     setMounted(true);
@@ -162,7 +169,7 @@ export default function Home() {
         />
       </div>
 
-      
+
 
       <div className="max-w-[min(100vh,600px)] mx-auto p-8 pt-12">
         <div className="w-[52px] h-[52px] mb-6 relative rounded-full">
@@ -198,6 +205,51 @@ export default function Home() {
           </div>
 
           <Divider />
+
+          <div className="grid grid-cols-3 gap-4 mb-8">
+            <div className="relative flex flex-col items-center justify-center p-4 rounded-lg bg-white dark:bg-neutral-950 border border-neutral-200 dark:border-neutral-800 group cursor-pointer overflow-hidden">
+              <div className="absolute inset-0 flex flex-col items-center justify-center transition-transform duration-300 group-hover:-translate-y-full">
+                <div className="text-3xl font-bold text-neutral-800 dark:text-neutral-200">{projectsList.length}+</div>
+                <div className="text-sm text-neutral-400 dark:text-neutral-500">Projects</div>
+              </div>
+
+              <div className="absolute inset-0 flex items-center justify-center translate-y-full transition-transform duration-300 group-hover:translate-y-0">
+                <button
+                  className="text-sm text-neutral-800 dark:text-neutral-200 bg-white dark:bg-neutral-950 border border-neutral-200 dark:border-neutral-800 px-4 py-2 rounded-md hover:bg-neutral-100 dark:hover:bg-neutral-800"
+                  onClick={() => {
+                    route("/clients?type=projects");
+                  }}
+                >
+                  View Projects
+                </button>
+              </div>
+            </div>
+
+            <div className="relative flex flex-col items-center justify-center p-4 rounded-lg bg-white dark:bg-neutral-950 border border-neutral-200 dark:border-neutral-800 group cursor-pointer overflow-hidden">
+              <div className="absolute inset-0 flex flex-col items-center justify-center transition-transform duration-300 group-hover:-translate-y-full">
+                <div className="text-3xl font-bold text-neutral-800 dark:text-neutral-200">100+</div>
+                <div className="text-sm text-neutral-400 dark:text-neutral-500">Clients</div>
+              </div>
+
+              <div className="absolute inset-0 flex items-center justify-center translate-y-full transition-transform duration-300 group-hover:translate-y-0">
+                <button
+                  className="text-sm text-neutral-800 dark:text-neutral-200 bg-white dark:bg-neutral-950 border border-neutral-200 dark:border-neutral-800 px-4 py-2 rounded-md hover:bg-neutral-100 dark:hover:bg-neutral-800"
+                  onClick={() => {
+                    route("/clients?type=clients");
+                  }}
+                >
+                  View Clients
+                </button>
+              </div>
+            </div>
+
+            <div className="flex flex-col items-center justify-center p-4 rounded-lg bg-white dark:bg-neutral-950 border border-neutral-200 dark:border-neutral-800">
+              <div className="text-3xl font-bold text-neutral-800 dark:text-neutral-200">4+</div>
+              <div className="text-sm text-neutral-400 dark:text-neutral-500 flex items-center gap-1">
+                <span>Yrs Expertise</span>
+              </div>
+            </div>
+          </div>
 
           <InView
             variants={{
@@ -300,53 +352,6 @@ export default function Home() {
             <div className="space-y-4">
               <NowPlaying />
             </div>
-          </InView>
-
-          <InView
-            variants={{
-              hidden: { opacity: 0, y: 20 },
-              visible: { opacity: 1, y: 0 }
-            }}
-            transition={{ duration: 0.4, ease: "easeOut" }}
-            viewOptions={{ margin: '0px 0px -100px 0px' }}
-          >
-            <InfiniteSlider gap={24} reverse duration={50} durationOnHover={150}>
-              <a href="https://synicalglobal.com">
-                <img
-                  src='/logos/synical.webp'
-                  alt='Synical logo'
-                  className='h-[120px] w-auto'
-                />
-              </a>
-              <a href="https://8thwndr.com">
-                <img
-                  src='/logos/8thwndr.png'
-                  alt='8thwndr logo'
-                  className='h-[120px] w-auto'
-                />
-              </a>
-              <a href="https://ditch.la">
-                <img
-                  src='/logos/ditch.webp'
-                  alt='ditch logo'
-                  className='h-[120px] w-auto'
-                />
-              </a>
-              <a href="https://pholoh.us">
-                <img
-                  src='/logos/pholoh.png'
-                  alt='pholoh logo'
-                  className='h-[120px] w-auto'
-                />
-              </a>
-              <a href="https://exodusgarments.com">
-                <img
-                  src='/logos/exodus.webp'
-                  alt='exodus logo'
-                  className='h-[120px] w-auto'
-                />
-              </a>
-            </InfiniteSlider>
           </InView>
 
           <div className="flex items-center justify-center w-full gap-4">

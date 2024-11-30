@@ -57,13 +57,13 @@ export function NowPlaying() {
 
   if (isInitialLoad) {
     return (
-      <div className="p-4 rounded-xl border border-neutral-200 dark:border-neutral-800">
+      <div className="p-4 border border-neutral-200 dark:border-neutral-800">
         <div className="flex items-center justify-between animate-pulse">
           <div className="flex gap-4">
-            <div className="w-16 h-16 bg-neutral-200 dark:bg-neutral-800 rounded-lg" />
+            <div className="w-16 h-16 bg-neutral-200 dark:bg-neutral-800" />
             <div className="space-y-2">
-              <div className="w-24 h-4 bg-neutral-200 dark:bg-neutral-800 rounded" />
-              <div className="w-32 h-4 bg-neutral-200 dark:bg-neutral-800 rounded" />
+              <div className="w-24 h-4 bg-neutral-200 dark:bg-neutral-800" />
+              <div className="w-32 h-4 bg-neutral-200 dark:bg-neutral-800" />
             </div>
           </div>
         </div>
@@ -73,14 +73,14 @@ export function NowPlaying() {
 
   if (error || !track) {
     return (
-      <div className="p-4 rounded-xl border border-neutral-200 dark:border-neutral-800">
+      <div className="p-4 border border-neutral-200 dark:border-neutral-800">
         <div className="flex items-center justify-between">
           <div className="text-sm text-neutral-500">
             {error || "No track information available"}
           </div>
           <button
             onClick={fetchNowPlaying}
-            className="p-2 hover:bg-neutral-100 dark:hover:bg-neutral-800 rounded-lg transition-colors"
+            className="p-2 hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors"
           >
             <RefreshCw className="h-4 w-4 text-neutral-500" />
           </button>
@@ -92,17 +92,17 @@ export function NowPlaying() {
   return (
     <>
       
-      <div className="hidden lg:block relative overflow-hidden rounded-xl bg-neutral-200/30 p-[1px] dark:bg-black">
+      <div className="hidden lg:block relative overflow-hidden bg-neutral-200/30 p-[1px] dark:bg-black">
         <Spotlight
           className="from-blue-500/40 via-blue-500/20 to-blue-500/10 blur-xl 
             dark:from-blue-400/40 dark:via-blue-400/20 dark:to-blue-400/10"
           size={124}
         />
-        <div className="relative block p-4 rounded-xl bg-white dark:bg-black">
+        <div className="relative block p-4 bg-white dark:bg-black">
           <div className="flex items-start justify-between">
             <div className="flex gap-4">
               
-              <div className="relative w-16 h-16 rounded-lg overflow-hidden flex-shrink-0">
+              <div className="relative w-16 h-16 overflow-hidden flex-shrink-0">
                 <Image
                   src={track.image[2]['#text'] || '/placeholder.png'}
                   alt={track.album?.['#text'] || 'Album artwork'}
@@ -128,7 +128,7 @@ export function NowPlaying() {
                   {track.name}
                 </div>
                 <div className="text-sm text-neutral-500 dark:text-neutral-400 truncate">
-                  {track.album?.['#text']}
+                  {track.artist?.['#text']}
                 </div>
               </div>
             </div>
@@ -137,7 +137,7 @@ export function NowPlaying() {
             <button
               onClick={fetchNowPlaying}
               disabled={isLoading}
-              className="p-2 hover:bg-neutral-100 dark:hover:bg-neutral-800 rounded-lg transition-colors"
+              className="p-2 hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors"
               aria-label="Refresh now playing"
             >
               <RefreshCw 
@@ -149,11 +149,11 @@ export function NowPlaying() {
       </div>
 
       
-      <div className="lg:hidden p-4 rounded-xl border border-neutral-200 dark:border-neutral-800 hover:border-neutral-300 dark:hover:border-neutral-700 transition-all duration-200">
+      <div className="lg:hidden p-4 border border-neutral-200 dark:border-neutral-800 hover:border-neutral-300 dark:hover:border-neutral-700 transition-all duration-200">
         <div className="flex items-start justify-between">
           <div className="flex gap-4">
             
-            <div className="relative w-16 h-16 rounded-lg overflow-hidden flex-shrink-0">
+            <div className="relative w-16 h-16 overflow-hidden flex-shrink-0">
               <Image
                 src={track.image[2]['#text'] || '/placeholder.png'}
                 alt={track.album?.['#text'] || 'Album artwork'}
@@ -188,7 +188,7 @@ export function NowPlaying() {
           <button
             onClick={fetchNowPlaying}
             disabled={isLoading}
-            className="p-2 hover:bg-neutral-100 dark:hover:bg-neutral-800 rounded-lg transition-colors"
+            className="p-2 hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors"
             aria-label="Refresh now playing"
           >
             <RefreshCw 

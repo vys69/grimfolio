@@ -79,7 +79,7 @@ export function GitHubProject({
   return (
     <>
       
-      <div className="hidden lg:block relative overflow-hidden rounded-xl bg-neutral-200/30 p-[1px] dark:bg-neutral-800/30">
+      <div className="hidden lg:block relative overflow-hidden bg-neutral-200/30 p-[1px] dark:bg-neutral-800/30">
         <Spotlight
           className="from-blue-500/40 via-blue-500/20 to-blue-500/10 blur-xl 
             dark:from-blue-400/40 dark:via-blue-400/20 dark:to-blue-400/10"
@@ -87,7 +87,7 @@ export function GitHubProject({
         />
         <a
           href={href}
-          className={`relative block p-4 rounded-xl bg-white dark:bg-black 
+          className={`relative block p-4 bg-white dark:bg-black 
             transition-all duration-200 ${className}`}
           style={style}
           onMouseEnter={!isMobile ? handleMouseEnter : undefined}
@@ -133,7 +133,7 @@ export function GitHubProject({
       <div className="lg:hidden">
         <a
           href={href}
-          className={`block p-4 rounded-xl border border-neutral-200 dark:border-neutral-800 
+          className={`block p-4 border border-neutral-200 dark:border-neutral-800 
             hover:border-neutral-300 dark:hover:border-neutral-700 
             transition-all duration-200 bg-white dark:bg-black ${className}`}
           style={style}
