@@ -217,7 +217,7 @@ export default function Home() {
                 <button
                   className="text-sm text-neutral-800 dark:text-neutral-200 bg-white dark:bg-neutral-950 border border-neutral-200 dark:border-neutral-800 px-4 py-2 rounded-md hover:bg-neutral-100 dark:hover:bg-neutral-800"
                   onClick={() => {
-                    route("/clients?type=projects");
+                    route("/clients?type=all");
                   }}
                 >
                   View Projects

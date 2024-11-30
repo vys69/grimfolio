@@ -138,19 +138,21 @@ export default function ProjectsPage() {
           <Popover open={isOpen} onOpenChange={setIsOpen}>
             <PopoverTrigger asChild>
               <button
-                className="flex-shrink-0 px-2 py-1 text-xs bg-white dark:bg-neutral-900 text-neutral-600 dark:text-neutral-400 border border-neutral-200 dark:border-neutral-800 rounded hover:border-neutral-300 dark:hover:border-neutral-700 transition-colors"
-                onClick={(e) => e.stopPropagation()}
-                onMouseEnter={() => setIsOpen(true)}
-                onMouseLeave={() => setIsOpen(false)}
+                className="flex-shrink-0 px-2 py-1 text-xs bg-white dark:bg-neutral-900 text-neutral-600 dark:text-neutral-400 border border-neutral-200 dark:border-neutral-800 rounded hover:border-neutral-300 dark:hover:border-neutral-700 transition-colors select-none cursor-pointer"
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  setIsOpen(!isOpen);
+                }}
               >
-                +{technologies.length - getVisibleCount('lg')} more
+                <span className="pointer-events-none">
+                  +{technologies.length - getVisibleCount('lg')} more
+                </span>
               </button>
             </PopoverTrigger>
             <PopoverContent
               className="w-auto p-2 bg-white dark:bg-neutral-900 border-neutral-200 dark:border-neutral-800"
               onClick={(e) => e.stopPropagation()}
-              onMouseEnter={() => setIsOpen(true)}
-              onMouseLeave={() => setIsOpen(false)}
             >
               <AnimatePresence>
                 <motion.div
@@ -215,7 +217,7 @@ export default function ProjectsPage() {
           </div>
         </InView>
 
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8 bg-white dark:bg-neutral-950 border border-neutral-200 dark:border-neutral-800 p-4">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8 bg-white dark:bg-neutral-950 border border-neutral-200 dark:border-neutral-800 p-4">
           <div>
             <h3 className="text-sm font-medium mb-2 text-neutral-800 dark:text-neutral-300">Project Type</h3>
             <Select value={projectType} onValueChange={handleProjectTypeChange}>
@@ -225,11 +227,41 @@ export default function ProjectsPage() {
               <SelectContent className="dark:bg-neutral-900 dark:border-neutral-800">
                 <SelectGroup>
                   <SelectLabel className="dark:text-neutral-400">Project Type</SelectLabel>
-                  <SelectItem value="all" className="dark:text-neutral-300">All Projects</SelectItem>
-                  <SelectItem value="featured" className="dark:text-neutral-300">Featured</SelectItem>
-                  <SelectItem value="openSource" className="dark:text-neutral-300">Open Source</SelectItem>
-                  <SelectItem value="projects" className="dark:text-neutral-300">Personal Projects</SelectItem>
-                  <SelectItem value="clients" className="dark:text-neutral-300">Clients</SelectItem>
+                  <SelectItem 
+                    value="all" 
+                    className="dark:text-neutral-300"
+                    disabled={projects.length === 0}
+                  >
+                    All Projects
+                  </SelectItem>
+                  <SelectItem 
+                    value="featured" 
+                    className="dark:text-neutral-300"
+                    disabled={!projects.some(p => p.tags.includes("featured"))}
+                  >
+                    Featured
+                  </SelectItem>
+                  <SelectItem 
+                    value="openSource" 
+                    className="dark:text-neutral-300"
+                    disabled={!projects.some(p => p.tags.includes("openSource"))}
+                  >
+                    Open Source
+                  </SelectItem>
+                  <SelectItem 
+                    value="projects" 
+                    className="dark:text-neutral-300"
+                    disabled={!projects.some(p => p.tags.includes("projects"))}
+                  >
+                    Personal Projects
+                  </SelectItem>
+                  <SelectItem 
+                    value="clients" 
+                    className="dark:text-neutral-300"
+                    disabled={!projects.some(p => p.tags.includes("clients"))}
+                  >
+                    Clients
+                  </SelectItem>
                 </SelectGroup>
               </SelectContent>
             </Select>
@@ -275,14 +307,26 @@ export default function ProjectsPage() {
                   className="block bg-white dark:bg-neutral-950 border border-neutral-200 dark:border-neutral-800 hover:border-neutral-700 transition-colors"
                   onMouseEnter={() => {
                     if (project.hoverVideo && videoRefs.current[index]) {
-                      videoRefs.current[index]!.style.display = 'block';
-                      videoRefs.current[index]!.play();
+                      const video = videoRefs.current[index];
+                      if (video) {
+                        video.style.display = 'block';
+                        // Add error handling for video playback
+                        video.play().catch(error => {
+                          console.log('Video playback failed:', error);
+                          // Optionally hide the video element if playback fails
+                          video.style.display = 'none';
+                        });
+                      }
                     }
                   }}
                   onMouseLeave={() => {
                     if (project.hoverVideo && videoRefs.current[index]) {
-                      videoRefs.current[index]!.style.display = 'none';
-                      videoRefs.current[index]!.pause();
+                      const video = videoRefs.current[index];
+                      if (video) {
+                        video.pause();
+                        video.style.display = 'none';
+                        video.currentTime = 0;
+                      }
                     }
                   }}
                 >
